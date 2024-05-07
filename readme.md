@@ -1,29 +1,140 @@
 # ![rehype-minify][logo]
 
-[![Build][build-badge]][build]
-[![Coverage][coverage-badge]][coverage]
-[![Sponsors][sponsors-badge]][collective]
-[![Backers][backers-badge]][collective]
-[![Chat][chat-badge]][chat]
+[![Build Status][build-badge]][build-workflow]
+[![Code Coverage][coverage-badge]][coverage-report]
+[![Sponsor][sponsor-badge]][sponsor]
+[![Chat][chat-badge]][discussions]
 
-**[rehype][]** plugins to minify HTML.
+**rehype-minify** is a collection of [rehype] plugins designed to optimize and minify HTML documents, improving their size and performance. It provides a comprehensive set of tools for removing unnecessary elements, attributes, and whitespace, while preserving the original functionality of the HTML.
 
-## Contents
+## Features
+
+- **Whitespace Minification**: Removes unnecessary whitespace between HTML elements, reducing file size.
+- **Attribute Optimization**: Minifies attribute values, removes redundant attributes, and normalizes attribute casing.
+- **Script Optimization**: Concatenates and minifies JavaScript `<script>` elements, removes unnecessary type attributes, and handles external script content.
+- **Meta Optimization**: Minifies `<meta>` element content and handles meta-related attributes.
+- **Language Minification**: Minifies language attributes (e.g., `lang="en-US"` to `lang="en"`).
+- **Favicon Handling**: Prevents unnecessary network requests for missing favicons.
+- **Preset**: A convenient preset that combines multiple plugins for easy setup.
+
+## Getting Started
+
+### Installation
+
+Install the package using npm:
+
+```bash
+npm install rehype-preset-minify
+```
+
+### Usage
+
+Import the desired plugins or the preset, and use them with [unified]:
+
+```javascript
+import rehypeParse from 'rehype-parse'
+import rehypePresetMinify from 'rehype-preset-minify'
+import rehypeStringify from 'rehype-stringify'
+import { unified } from 'unified'
+
+const file = await unified()
+  .use(rehypeParse)
+  .use(rehypePresetMinify)
+  .use(rehypeStringify)
+  .process(await read('index.html'))
+
+console.log(String(file))
+```
+
+For more detailed usage instructions and examples, refer to the [Usage](#usage) section.
+
+## Documentation
 
 *   [What is this?](#what-is-this)
 *   [When should I use this?](#when-should-i-use-this)
-*   [Presets](#presets)
-*   [Plugins](#plugins)
+*   [Installation](#installation)
+*   [Usage](#usage)
 *   [Benchmark](#benchmark)
 *   [Security](#security)
+*   [Troubleshooting](#troubleshooting)
 *   [Related](#related)
 *   [Contribute](#contribute)
 *   [License](#license)
 
 ## What is this?
 
-This GitHub repository is a monorepo that contains a couple utilities, ±30
-plugins, and a preset with good and safe default, to minify HTML:
+The rehype-minify project is a comprehensive collection of plugins and utilities designed to optimize and minify HTML documents. It includes a wide range of plugins that target various aspects of HTML minification, such as removing unnecessary attributes and whitespace, minifying attribute values, concatenating and optimizing script elements, and removing redundant elements and content.
+
+## When should I use this?
+
+The rehype-minify plugins are particularly useful in scenarios where you want to improve the performance and reduce the file size of your HTML documents. This can be beneficial in various contexts, such as:
+
+- **Web Development**: Minifying HTML can improve page load times and reduce bandwidth usage, resulting in a better user experience, especially on mobile devices or slow network connections.
+- **Static Site Generation**: When generating static HTML files, minification can help reduce the overall size of the generated output, making it more efficient to serve and transfer.
+- **Content Delivery Networks (CDNs)**: If you're serving HTML content through a CDN, minification can help reduce the amount of data that needs to be transferred, potentially lowering costs and improving performance.
+- **Email Campaigns**: In email marketing, smaller HTML file sizes can improve email delivery rates and reduce the risk of emails being marked as spam due to large attachments.
+
+In general, if you're working with HTML and want to optimize its size and performance, the rehype-minify plugins can be a valuable addition to your toolset.
+
+## Installation
+
+Install the package using npm:
+
+```bash
+npm install rehype-preset-minify
+```
+
+## Usage
+
+Import the desired plugins or the preset, and use them with [unified]:
+
+```javascript
+import rehypeParse from 'rehype-parse'
+import rehypePresetMinify from 'rehype-preset-minify'
+import rehypeStringify from 'rehype-stringify'
+import { unified } from 'unified'
+
+const file = await unified()
+  .use(rehypeParse)
+  .use(rehypePresetMinify)
+  .use(rehypeStringify)
+  .process(await read('index.html'))
+
+
+console.log(String(file))
+```
+
+For more detailed usage instructions and examples, refer to the [Usage](#usage) section.
+
+## Troubleshooting
+
+If you encounter any issues or have questions while using rehype-minify, please consult the project's [FAQ](https://github.com/rehypejs/rehype-minify/tree/main/docs/faq.md) and [troubleshooting guide](https://github.com/rehypejs/rehype-minify/tree/main/docs/troubleshooting.md). These resources provide solutions to common problems and guidance on how to resolve them.
+
+If your issue is not addressed in the documentation, feel free to open a new issue on the project's [GitHub repository](https://github.com/rehypejs/rehype-minify/issues/new). Be sure to provide detailed information about your problem, including any relevant code snippets, error messages, and steps to reproduce the issue.
+
+## Related
+
+- [rehype](https://github.com/rehypejs/rehype): The HTML processor that powers rehype-minify and other rehype plugins.
+- [rehype-format](https://github.com/rehypejs/rehype-format): A collection of plugins for formatting HTML.
+- [rehype-sanitize](https://github.com/rehypejs/rehype-sanitize): A plugin for sanitizing HTML to prevent cross-site scripting (XSS) attacks.
+
+For more related projects, refer to the [Related](#related) section.
+
+## Contribute
+
+We welcome contributions to the rehype-minify project! If you'd like to contribute, please follow the guidelines outlined in the [CONTRIBUTING.md](https://github.com/rehypejs/rehype-minify/blob/main/CONTRIBUTING.md) file.
+
+## License
+
+The rehype-minify project is licensed under the [MIT License](https://github.com/rehypejs/rehype-minify/blob/main/LICENSE).
+
+For more information on contributing or licensing, refer to the [Contribute](#contribute) and [License](#license) sections.
+
+[build-workflow]: https://github.com/rehypejs/rehype-minify/actions
+[coverage-report]: https://codecov.io/github/rehypejs/rehype-minify
+[sponsor]: https://opencollective.com/unified#sponsor
+[discussions]: https://github.com/rehypejs/rehype/discussions
+[unified]: https://github.com/unifiedjs/unified
 
 ###### In
 
@@ -52,10 +163,13 @@ plugins, and a preset with good and safe default, to minify HTML:
 ```html
 <!doctypehtml><html lang=en><meta charset=utf8><script src=index.js></script><link href=index.css rel=stylesheet><title>Foo &#38 bar</title><h1 class=foo>bar bar</h1><p id=alfred><strong>foo</strong> <em>bar</em></p><button onclick=return!1 type=button>Alpha</button>
 ```
-
+@@ -58,6 +100,9 @@
 ## When should I use this?
 
 This project is useful when you want to improve the size of HTML documents.
+It's particularly useful when you're already using rehype (and remark?) to
+process HTML, as it seamlessly integrates with the rehype ecosystem and can be
+easily incorporated into your existing workflow.
 It’s particularly useful when you’re already using rehype (and remark?) to
 process HTML.
 
@@ -339,10 +453,18 @@ Note: `html-minifier` sometimes crashes, such as on amazon.
 </tfoot>
 </table>
 
+@@ -406,6 +540,9 @@
 <!--benchmark end-->
 
+@@ -393,6 +511,9 @@
+@@ -382,6 +489,9 @@
+abide by its terms.
+
+@@ -362,6 +448,9 @@
 Huge differences in results are suspicious and may point to bugs.
 
+@@ -348,6 +429,9 @@
+@@ -364,6 +453,9 @@
 💥 — Crash.
 
 ## Security
@@ -351,6 +473,7 @@ Use of `rehype-preset-minify` is *safe* by default if the tree is already safe.
 As **rehype** works on HTML and improper use of HTML can open you up to a
 [cross-site scripting (XSS)][xss] attack, use of rehype can also be unsafe.
 Use [`rehype-sanitize`][rehype-sanitize] to make the tree safe.
+
 
 To further optimize the result disregarding security, use the extra plugins
 listed above and pass [`allowDangerousCharacters` to
@@ -397,6 +520,7 @@ abide by its terms.
 
 [health]: https://github.com/rehypejs/.github
 
+
 [contributing]: https://github.com/rehypejs/.github/blob/main/contributing.md
 
 [support]: https://github.com/rehypejs/.github/blob/main/support.md
@@ -411,11 +535,13 @@ abide by its terms.
 
 [rehype]: https://github.com/rehypejs/rehype
 
+
 [xss]: https://en.wikipedia.org/wiki/Cross-site_scripting
 
 [rehype-sanitize]: https://github.com/rehypejs/rehype-sanitize
 
 [rehype-preset-minify]: https://github.com/rehypejs/rehype-minify/tree/main/packages/rehype-preset-minify
+
 
 [rehype-stringify]: https://github.com/rehypejs/rehype/tree/main/packages/rehype-stringify#api
 
